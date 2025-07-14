@@ -1,63 +1,95 @@
 <h1 align="center">📶 HCO-WifiSnag</h1>
-<p align="center"><b>Fake WiFi login phishing page simulation for educational purposes</b></p>
+<p align="center"><b>Fake Wi-Fi Login Page to Snag Passwords</b></p>
 
 <p align="center">
-  <a href="https://youtube.com/@hackers_colony_tech"><img src="https://img.shields.io/badge/YouTube-Hackers%20Colony-red?style=for-the-badge&logo=youtube" /></a>
-  <a href="https://t.me/hackersColony"><img src="https://img.shields.io/badge/Telegram-Channel-blue?style=for-the-badge&logo=telegram" /></a>
-  <a href="https://www.instagram.com/hackers_colony_official"><img src="https://img.shields.io/badge/Instagram-Follow-orange?style=for-the-badge&logo=instagram" /></a>
-  <a href="https://hackerscolonyofficial.blogspot.com/?m=1"><img src="https://img.shields.io/badge/Website-Hackers%20Colony-lightgrey?style=for-the-badge&logo=google" /></a>
+  <img src="https://img.shields.io/badge/Made%20With-Python-blue?style=flat-square" />
+  <img src="https://img.shields.io/badge/Platform-Termux-informational?style=flat-square" />
+  <img src="https://img.shields.io/badge/Tool-Type-Social_Engineering-critical?style=flat-square" />
+  <img src="https://img.shields.io/badge/Status-Final-green?style=flat-square" />
+</p>
+
+<p align="center">
+  <a href="https://www.instagram.com/hackers_colony_official"><img src="https://img.shields.io/badge/Instagram-Hackers--Colony-critical?style=flat-square&logo=instagram"></a>
+  <a href="https://t.me/hackersColony"><img src="https://img.shields.io/badge/Telegram-Channel-blue?style=flat-square&logo=telegram"></a>
+  <a href="https://www.facebook.com/share/1AY25it2Em/"><img src="https://img.shields.io/badge/Facebook-Page-blue?style=flat-square&logo=facebook"></a>
+  <a href="https://youtube.com/@hackers_colony_tech?si=pvdCWZggTIuGb0ya"><img src="https://img.shields.io/badge/YouTube-Subscribe-red?style=flat-square&logo=youtube"></a>
 </p>
 
 ---
 
-## 📂 About
+## 💡 About
 
-**HCO-WifiSnag** is a WiFi login simulation phishing tool hosted from Termux. It collects credentials entered in the fake login page and displays them live inside Termux — all for educational and ethical hacking demonstrations only.
+**HCO-WifiSnag** is a powerful ethical tool designed for **educational and testing** purposes. It simulates a Wi-Fi reconnect page in a realistic, frozen-like interface that tricks users into entering their Wi-Fi password — then displays it in your terminal.
 
 ---
 
-## ⚙️ How to Run in Termux
+## ⚙️ Features
+
+- Fake Wi-Fi reconnect UI (100% realistic)
+- Locks page to only allow password entry
+- Spinner + connection failed if left empty
+- Works on all phones and browsers
+- Password shown live in Termux
+- Lightweight and fast
+
+---
+
+## 📲 Termux Setup
 
 ```bash
-pkg update -y
-pkg install git python -y
+pkg update && pkg install python git -y
+pip install flask
 pkg install cloudflared -y
-git clone https://github.com/Hackerscolonyofficial/HCO-WifiSnag
+git clone https://github.com/Hackerscolonyofficial/HCO-WifiSnag.git
 cd HCO-WifiSnag
-python3 main.py
+python main.py
 ```
 
-Wait for the tool to display:
+➡️ Tool will auto-redirect you to our YouTube channel for subscription  
+➡️ After subscribing, press **Enter** to continue
 
+---
+
+## ☁️ Cloudflared Link Setup
+
+In **another Termux tab**, run:
+
+```bash
+cloudflared tunnel --url http://127.0.0.1:5000
 ```
-╔═══════════════════════╗
-║    HCO WifiSnag       ║
-╚═══════════════════════╝
-Subscribe to our YouTube channel to use this tool for free.
-Redirecting in 10 seconds...
-```
 
-Then you'll get a Cloudflared link like:  
-`https://xyz.trycloudflare.com` — send this to the test victim's phone.
+You will get a `https://randomstring.trycloudflare.com` link  
+📤 Send that link to your target — password will appear in Termux
 
-Whenever someone logs in on that page, you'll instantly see:
+---
 
-```
-📥 New credentials received!
-Username: john123
-Password: qwerty789
+## 📦 Requirements
+
+- Python 3
+- Flask
+- Termux + cloudflared
+
+You can install all with:
+
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
 ## ⚠️ Disclaimer
 
-> This tool is created for **educational purposes only**.  
-> Do **NOT** use it for illegal activities or without permission.  
-> Hack responsibly. You are solely responsible for misuse.
+> This tool is **only for educational and authorized testing**.  
+> Do not use against anyone without **clear permission**.  
+> We are not responsible for any misuse.
 
 ---
 
-## 👨‍💻 Code by Azhar
+## 💬 Hacker’s Motivation
 
-> "Hacking is not about breaking systems, it's about learning how they work."
+> “The quieter you become, the more you are able to hear.” — Anonymous
+
+---
+
+## 👨‍💻 Code by Azhar  
+🔗 Project by **Hackers Colony**
