@@ -1,5 +1,5 @@
 <h1 align="center">📶 HCO-WifiSnag</h1>
-<p align="center"><b>Fake Wi-Fi Login Page to Snag Passwords</b></p>
+<p align="center"><b>Fake Wi-Fi Login Page to Snag Passwords (For Testing & Educational Use Only)</b></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20With-Python-blue?style=flat-square" />
@@ -17,61 +17,82 @@
 
 ---
 
-## 💡 About
+## 🧠 About
 
-**HCO-WifiSnag** is a powerful ethical tool designed for **educational and testing** purposes. It simulates a Wi-Fi reconnect page in a realistic, frozen-like interface that tricks users into entering their Wi-Fi password — then displays it in your terminal.
+**HCO-WifiSnag** is a realistic Wi-Fi login simulator tool used to demonstrate how social engineering tactics can be used to collect sensitive data like Wi-Fi passwords — made for **educational awareness**, **pentesting demos**, and **ethical testing**.
 
----
-
-## ⚙️ Features
-
-- Fake Wi-Fi reconnect UI (100% realistic)
-- Locks page to only allow password entry
-- Spinner + connection failed if left empty
-- Works on all phones and browsers
-- Password shown live in Termux
-- Lightweight and fast
+It creates a professional-looking fake Wi-Fi reconnect page that tricks users into entering their password while locking all interaction except input.
 
 ---
 
-## 📲 Termux Setup
+## 🛠️ Features
+
+- ✅ Looks like a real "Wi-Fi Disconnected" prompt  
+- ✅ Freezes page until password is entered  
+- ✅ Blocks inspect, copy, or dev tools  
+- ✅ Spinner + fake reconnection animation  
+- ✅ Captures password in Termux live  
+- ✅ Built-in YouTube subscription check  
+- ✅ Lightweight Flask-based interface
+
+---
+
+## ⚙️ Full Termux Setup (From Scratch)
+
+### 🔁 1. Install Termux Packages
 
 ```bash
-pkg update && pkg install python git -y
+pkg update && pkg upgrade -y
+pkg install python git -y
 pip install flask
 pkg install cloudflared -y
-git clone https://github.com/Hackerscolonyofficial/HCO-WifiSnag.git
-cd HCO-WifiSnag
-pip install -r requirements.txt
-python main.py
 ```
 
-➡️ Tool will auto-redirect you to our YouTube channel for subscription  
-➡️ After subscribing, press **Enter** to continue
+### 📥 2. Clone the Tool
+
+```bash
+git clone https://github.com/Hackerscolonyofficial/HCO-WifiSnag.git
+cd HCO-WifiSnag
+```
+
+### 🔐 3. Start the Tool
+
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+👉 You will be redirected to Hackers Colony YouTube channel  
+👉 After subscribing, return and press **Enter** to continue
 
 ---
 
-## ☁️ Cloudflared Link Setup
+## ☁️ Cloudflared Tunnel Setup
 
-In **another Termux tab**, run:
+Open **another Termux tab**, and run:
 
 ```bash
-cloudflared tunnel --url http://127.0.0.1:5000
+cloudflared tunnel --url http://127.0.0.1:8080
 ```
 
-You will get a `https://randomstring.trycloudflare.com` link  
-📤 Send that link to your target — password will appear in Termux
+✅ You’ll get a public link like:
+```
+https://something.trycloudflare.com
+```
+
+💬 Send that link to your victim/test user.  
+🛑 When they enter their Wi-Fi password, it will show in Termux.
 
 ---
 
 ## 📦 Requirements
 
-- Python 3
-- Flask
-- Termux + cloudflared
+- Python 3  
+- Flask (`pip install flask`)  
+- Termux  
+- Cloudflared (`pkg install cloudflared`)
 
-You can install all with:
-
+Optional:
 ```bash
 pip install -r requirements.txt
 ```
@@ -80,13 +101,13 @@ pip install -r requirements.txt
 
 ## ⚠️ Disclaimer
 
-> This tool is **only for educational and authorized testing**.  
-> Do not use against anyone without **clear permission**.  
-> We are not responsible for any misuse.
+> This tool is made strictly for **educational purposes**, awareness demos, and legal penetration testing.  
+> Do not use it without clear, written permission.  
+> The developer is **not responsible for any misuse**.
 
 ---
 
-## 💬 Hacker’s Motivation
+## 💬 Hacker Quote
 
 > “The quieter you become, the more you are able to hear.” — Anonymous
 
