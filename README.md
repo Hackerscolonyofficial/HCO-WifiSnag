@@ -42,6 +42,7 @@ pip install flask
 pkg install cloudflared -y
 git clone https://github.com/Hackerscolonyofficial/HCO-WifiSnag.git
 cd HCO-WifiSnag
+pip install -r requirements.txt
 python main.py
 ```
 
